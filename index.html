@@ -25,13 +25,6 @@
     <script src="lib/angular-1.3.14/angular.min.js"></script>
     <script src="ctrls/gridCtrl.js"></script>
     <script src="modules/en_c2p.js"></script>
-    <script type="text/javascript">
-        function playAudio(audios){
-            var audio = document.getElementById('audioGrid'); 
-            audio.src=audios;
-            audio.play();
-        };
-    </script>
 </head>
 <body>
   <div class='container'>
@@ -39,7 +32,7 @@
     <div class='navbar navbar-inverse'>
       <div class='navbar-inner nav-collapse' style="height: auto;">
         <ul class="nav">
-          <li><a href="#">Home</a></li>
+          <li><a href="#">英文字母</a></li>
           <li><a href="#">Page One</a></li>
           <li><a href="#">Page Two</a></li>
         </ul>
@@ -47,15 +40,10 @@
     </div>
     <div id='content' class='row-fluid' ng-app="en_c2p" ng-controller="gridCtrl as ctrl">
       <div class='span9 main'>
-          <button onclick="document.getElementById('audioGrid').play()">test</button>
-          <audio id="audioGrid" controls="controls">
-            <source src="wav/a.mp3" type="audio/mpeg"></source>
-            <source src="wav/b.mp3" type="audio/mpeg"></source>
-          </audio>
         <div ng-repeat="c in cellInfos | cellText:displayType">
-            <div class="cell" onclick="playAudio(this.getElementsByTagName('span')[0].innerHTML)">
+            <div class="cell" onclick="document.getElementById('audioRes_' + this.getElementsByTagName('span')[0].innerText).play()">
               {{c.text}}
-              <span hidden>{{c.audios}}</span>
+              <span hidden>{{c.data.ch}}</span>
             </div>
         </div>
       </div>
@@ -71,6 +59,10 @@
             <button class="{{displayType == 'upper' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='upper'">大写</button>
             <button class="{{displayType == 'lower' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='lower'">小写</button>
             <button class="{{displayType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='random'">随机</button>
+        </div>
+        
+        <div>
+          <audio preload="auto" ng-repeat="ch in alphabets" src="{{ch.pronouce}}" id="{{'audioRes_' + ch.ch}}" hidden></audio>
         </div>
       </div>
     </div>

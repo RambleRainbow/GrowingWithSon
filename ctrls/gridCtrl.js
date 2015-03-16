@@ -76,7 +76,7 @@ function gridCtrl($scope, $http, pickAlphabet )
 		
 	$http.get('datas/alphabets.json').success(function(data){
 		$scope.alphabets = data;
-		$scope.regenrateCellInfos($scope.alphabets);		
+		$scope.regenrateCellInfos($scope.alphabets);
 		$scope.randomCellInfos();
 	});
 	

@@ -2,9 +2,9 @@ function gridCtrl($scope, $http, pickAlphabet )
 {
 	$scope.alphabets = undefined;
 	$scope.cellInfos = undefined;
-	$scope.displayType = 'random'; //random all lower upper
-	$scope.orderType = 'random'; //asc random
-	$scope.studyMode = 'p2a'; //p2a a2p
+	$scope.displayType = ''; //random all lower upper
+	$scope.orderType = ''; //asc random
+	$scope.studyMode = ''; //p2a a2p
 	
 	$scope.initCellInfos = function(datas){
 	    $scope.cellInfos = new Array();
@@ -19,8 +19,13 @@ function gridCtrl($scope, $http, pickAlphabet )
 	$http.get('datas/alphabets.json').success(function(data){
 		$scope.alphabets = data;
 		$scope.initCellInfos($scope.alphabets);
-		$scope.randomCellInfos();
-		$scope.randomAlphabet();
+		
+		$scope.displayType = 'random'; //random all lower upper
+		$scope.orderType = 'random'; //asc random
+		$scope.studyMode = 'a2p'; //p2a a2p
+
+		//$scope.randomCellInfos();
+		//$scope.randomAlphabet();
 	});
 	
 	$scope.randomAlphabet = function(){
@@ -44,30 +49,34 @@ function gridCtrl($scope, $http, pickAlphabet )
 	
 	$scope.playAudioRes  = function(aAudios){
 		var eAudio = document.getElementById('audioRes_' + aAudios[0]);
-		eAudio.play(aAudios[0]);
-		eAudio.onended = function(){
-			aAudios.splice(0,1);
-			eAudio.load();
-			eAudio.onended = undefined;
-			if(aAudios.length > 0){
-				$scope.playAudioRes(aAudios);
-			}
-		};
+		if(eAudio){
+			eAudio.play(aAudios[0]);
+			eAudio.onended = function(){
+				aAudios.splice(0,1);
+				eAudio.load();
+				eAudio.onended = undefined;
+				if(aAudios.length > 0){
+					$scope.playAudioRes(aAudios);
+				}
+			};
+		}
 	};
 	
 	$scope.randomCellInfos = function(){
-		var aReturn = new Array();
-		var nLen = 0;
-		
-		for(i = 0; i < $scope.cellInfos.length; i++){
-			aReturn[i] = $scope.cellInfos[i];
-		}
-		
-		while(aReturn.length > 0){
-			var nIndex = Math.round(Math.random() * (aReturn.length - 1));
-			$scope.cellInfos[nLen] = aReturn[nIndex];
-			nLen = nLen + 1;
-			aReturn.splice(nIndex, 1);
+		if($scope.cellInfos){
+			var aReturn = new Array();
+			var nLen = 0;
+			
+			for(i = 0; i < $scope.cellInfos.length; i++){
+				aReturn[i] = $scope.cellInfos[i];
+			}
+			
+			while(aReturn.length > 0){
+				var nIndex = Math.round(Math.random() * (aReturn.length - 1));
+				$scope.cellInfos[nLen] = aReturn[nIndex];
+				nLen = nLen + 1;
+				aReturn.splice(nIndex, 1);
+			}
 		}
 	};
 	

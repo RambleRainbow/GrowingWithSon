@@ -20,12 +20,9 @@ function gridCtrl($scope, $http, pickAlphabet )
 		$scope.alphabets = data;
 		$scope.initCellInfos($scope.alphabets);
 		
-		$scope.displayType = 'random'; //random all lower upper
-		$scope.orderType = 'random'; //asc random
-		$scope.studyMode = 'a2p'; //p2a a2p
-
-		//$scope.randomCellInfos();
-		//$scope.randomAlphabet();
+		$scope.displayType = 'random';
+		$scope.orderType = 'random';
+		$scope.studyMode = 'a2p';
 	});
 	
 	$scope.randomAlphabet = function(){

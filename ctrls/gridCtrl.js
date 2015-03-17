@@ -82,10 +82,6 @@ function gridCtrl($scope, $http, pickAlphabet )
 		$scope.randomAlphabet();
 	});
 	
-	$scope.togglex = function(){
-		$scope.regenrateCellInfos($scope.alphabets);		
-	};
-	
 	$scope.randomAlphabet = function(){
 		$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))].ch;
 	};

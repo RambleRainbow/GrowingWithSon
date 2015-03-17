@@ -44,7 +44,6 @@
         <div ng-repeat="c in cellInfos">
             <div class="cell" ng-click="checkUserClick(c.data.ch)">
               {{c.text}}
-              <span hidden>{{(studyMode=='a2p')?c.data.ch:(c.data.ch==curAlphabet?'right':'wrong')}}</span>
             </div>
         </div>
       </div>

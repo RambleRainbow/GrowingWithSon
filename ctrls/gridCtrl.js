@@ -111,7 +111,6 @@ function gridCtrl($scope, $http, pickAlphabet )
 		}
 	};
 	$scope.playAudioRes  = function(aAudios){
-		alert(aAudios);
 		var eAudio = document.getElementById('audioRes_' + aAudios[0]);
 		eAudio.play(aAudios[0]);
 		eAudio.onended = function(){

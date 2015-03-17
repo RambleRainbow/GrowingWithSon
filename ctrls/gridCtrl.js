@@ -49,14 +49,8 @@ function gridCtrl($scope, $http, pickAlphabet )
 	});
 	
 	$scope.randomAlphabet = function(){
-		$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))].ch;
-	};
-	
-	$scope.setStudyMode = function(mode){
-		$scope.studyMode = mode;
-		$scope.randomAlphabet();
-		if(mode == 'p2a'){
-			$scope.playAudioRes([$scope.curAlphabet]);
+		if($scope.alphabets != undefined){
+			$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))].ch;
 		}
 	};
 	
@@ -100,4 +94,11 @@ function gridCtrl($scope, $http, pickAlphabet )
 			}
 		}
 	}); 
+	$scope.$watch('studyMode', function(value){
+		$scope.studyMode = value;
+		$scope.randomAlphabet();
+		if(value == 'p2a'){
+			$scope.playAudioRes([$scope.curAlphabet]);
+		}
+	});
 };

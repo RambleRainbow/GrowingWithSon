@@ -1,12 +1,13 @@
 function gridCtrl($scope, $http, pickAlphabet )
 {
-	$scope.studyMode = 'a2p';  //a2p p2a
+	$scope.alphabets = undefined;
+	$scope.cellInfos = undefined;
+	$scope.displayType = 'random'; //random all lower upper
+	$scope.orderType = 'random'; //asc random
+	$scope.studyMode = 'p2a'; //p2a a2p
+	
 	$scope.initCellInfos = function(datas){
 	    $scope.cellInfos = new Array();
-	    
-	    $scope.displayType = 'random';//all upper lower random
-	    $scope.orderType = 'random';
-	    
 	    for(i = 0; i < datas.length; i++){
 	      	  $scope.cellInfos[i] = {text:"A", audios:"", data:null};
 	      	  $scope.cellInfos[i].text = datas[i].text;
@@ -15,30 +16,6 @@ function gridCtrl($scope, $http, pickAlphabet )
 	    }
 	};
 	
-	$scope.randomCellInfos = function(){
-		var aReturn = new Array();
-		var nLen = 0;
-		
-		for(i = 0; i < $scope.cellInfos.length; i++){
-			aReturn[i] = $scope.cellInfos[i];
-		}
-		
-		while(aReturn.length > 0){
-			var nIndex = Math.round(Math.random() * (aReturn.length - 1));
-			$scope.cellInfos[nLen] = aReturn[nIndex];
-			nLen = nLen + 1;
-			aReturn.splice(nIndex, 1);
-		}
-	};
-	
-	$scope.compareCellInfos = function (a, b){
-		return (a.data.lower > b.data.lower)? 1 : -1;
-	};
-
-	$scope.sortCellInfos = function(){
-		$scope.cellInfos.sort($scope.compareCellInfos);
-	};
-		
 	$http.get('datas/alphabets.json').success(function(data){
 		$scope.alphabets = data;
 		$scope.initCellInfos($scope.alphabets);
@@ -78,6 +55,31 @@ function gridCtrl($scope, $http, pickAlphabet )
 		};
 	};
 	
+	$scope.randomCellInfos = function(){
+		var aReturn = new Array();
+		var nLen = 0;
+		
+		for(i = 0; i < $scope.cellInfos.length; i++){
+			aReturn[i] = $scope.cellInfos[i];
+		}
+		
+		while(aReturn.length > 0){
+			var nIndex = Math.round(Math.random() * (aReturn.length - 1));
+			$scope.cellInfos[nLen] = aReturn[nIndex];
+			nLen = nLen + 1;
+			aReturn.splice(nIndex, 1);
+		}
+	};
+	
+	$scope.compareCellInfos = function (a, b){
+		return (a.data.lower > b.data.lower)? 1 : -1;
+	};
+
+	$scope.sortCellInfos = function(){
+		$scope.cellInfos.sort($scope.compareCellInfos);
+	};
+
+
 	$scope.$watch('displayType', function(value){
 		if($scope.cellInfos != undefined && value != undefined){
 			for(i = 0; i < $scope.cellInfos.length; i++){
@@ -99,6 +101,7 @@ function gridCtrl($scope, $http, pickAlphabet )
 			$scope.playAudioRes([$scope.curAlphabet]);
 		}
 	});
+	
 	$scope.$watch('orderType', function(value){
 		if(value=='asc'){
 			$scope.sortCellInfos();

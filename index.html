@@ -50,13 +50,13 @@
       <div class='span3 sidebar'>
         <h2>模式</h2>
         <div class="btn-group" style="width:100%">
-            <button class="{{studyMode == 'a2p' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode = 'a2p'">字->音</button>
-            <button class="{{studyMode == 'p2a' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode = 'p2a'">音->字</button>
+            <button class="{{studyMode == 'a2p' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode='a2p'">字->音</button>
+            <button class="{{studyMode == 'p2a' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode='p2a'">音->字</button>
         </div>
         <h2>顺序</h2>
         <div class="btn-group" style="width:100%">
-            <button class="{{orderType == 'asc' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="sortCellInfos()">正序</button>
-            <button class="{{orderType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="randomCellInfos()">乱序</button>
+            <button class="{{orderType == 'asc' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="orderType='asc'">正序</button>
+            <button class="{{orderType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="orderType='random'">乱序</button>
         </div>
         <h2>字母:</h2>
         <div class="btn-group" style="width:100%">

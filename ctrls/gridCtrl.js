@@ -101,4 +101,11 @@ function gridCtrl($scope, $http, pickAlphabet )
 			$scope.playAudioRes([$scope.curAlphabet]);
 		}
 	});
+	$scope.$watch('orderType', function(value){
+		if(value=='asc'){
+			$scope.sortCellInfos();
+		} else {
+			$scope.randomCellInfos();
+		};
+	});
 };

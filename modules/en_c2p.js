@@ -18,22 +18,6 @@ var en_c2p = angular.module('en_c2p',[])
 	})
 	.filter('cellText', [function(){
 		function cellTextFilter(cellInfos,displayType){
-			if(cellInfos == undefined){
-			  return cellInfos;
-			}
-			else{
-				for(i = 0; i < cellInfos.length; i++){
-					switch(displayType){
-						case 'all':cellInfos[i].text = cellInfos[i].data.upper + cellInfos[i].data.lower;break;
-						case 'upper':cellInfos[i].text = cellInfos[i].data.upper;break;
-						case 'random':cellInfos[i].text = ((Math.random() > 0.5) ? cellInfos[i].data.upper : cellInfos[i].data.lower); break;
-						case 'lower':cellInfos[i].text = cellInfos[i].data.lower;break;
-						default:cellInfos[i].text = cellInfos[i].data.upper + cellInfos[i].data.lower;
-					};
-					
-				}
-				return cellInfos;
-			}
 		}
 		return cellTextFilter;
 	}])

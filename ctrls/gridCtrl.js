@@ -1,5 +1,6 @@
 function gridCtrl($scope, $http, pickAlphabet )
 {
+	$scope.studyMode = 'a2p';  //a2p p2a
 	$scope.rangeCell = function(datas){
 		var cellSize = 100;
 		var cellMargin = 10;
@@ -78,9 +79,63 @@ function gridCtrl($scope, $http, pickAlphabet )
 		$scope.alphabets = data;
 		$scope.regenrateCellInfos($scope.alphabets);
 		$scope.randomCellInfos();
+		$scope.randomAlphabet();
 	});
 	
 	$scope.togglex = function(){
 		$scope.regenrateCellInfos($scope.alphabets);		
 	};
+	
+	$scope.randomAlphabet = function(){
+		$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))].ch;
+	};
+	
+	$scope.setStudyMode = function(mode){
+		$scope.studyMode = mode;
+		$scope.randomAlphabet();
+		if(mode == 'p2a'){
+			$scope.playAudioRes([$scope.curAlphabet]);
+		}
+	};
+	
+	$scope.checkUserClick = function(ch){
+		if($scope.studyMode == 'a2p'){
+			$scope.playAudioRes([ch]);
+		}else{
+			if($scope.curAlphabet == ch){
+				$scope.randomAlphabet();
+				$scope.playAudioRes(['right', $scope.curAlphabet]);
+			}else{
+				$scope.playAudioRes(['wrong', $scope.curAlphabet]);
+			}
+		}
+	};
+	$scope.playAudioRes  = function(aAudios){
+		alert(aAudios);
+		var eAudio = document.getElementById('audioRes_' + aAudios[0]);
+		eAudio.play(aAudios[0]);
+		eAudio.onended = function(){
+			aAudios.splice(0,1);
+			eAudio.load();
+			eAudio.onended = undefined;
+			if(aAudios.length > 0){
+				$scope.playAudioRes(aAudios);
+			}
+		};
+	};
+	
+	$scope.$watch('displayType', function(value){
+		if($scope.cellInfos != undefined && value != undefined){
+			for(i = 0; i < $scope.cellInfos.length; i++){
+				switch(value){
+					case 'all':$scope.cellInfos[i].text = $scope.cellInfos[i].data.upper + $scope.cellInfos[i].data.lower;break;
+					case 'upper':$scope.cellInfos[i].text = $scope.cellInfos[i].data.upper;break;
+					case 'random':$scope.cellInfos[i].text = ((Math.random() > 0.5) ? $scope.cellInfos[i].data.upper : $scope.cellInfos[i].data.lower); break;
+					case 'lower':$scope.cellInfos[i].text = $scope.cellInfos[i].data.lower;break;
+					default:$scope.cellInfos[i].text = $scope.cellInfos[i].data.upper + $scope.cellInfos[i].data.lower;
+				};
+				
+			}
+		}
+	}); 
 };

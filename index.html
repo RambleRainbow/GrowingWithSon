@@ -22,9 +22,10 @@
           line-height: 30px;
         }
     </style>
-    <script src="lib/angular-1.3.14/angular.min.js"></script>
+    <script src="lib/angular-1.3.14/angular.js"></script>
     <script src="ctrls/gridCtrl.js"></script>
     <script src="modules/en_c2p.js"></script>
+    <script src="lib/angular-1.3.14/angular"></script>
 </head>
 <body>
   <div class='container'>
@@ -40,20 +41,25 @@
     </div>
     <div id='content' class='row-fluid' ng-app="en_c2p" ng-controller="gridCtrl as ctrl">
       <div class='span9 main'>
-        <div ng-repeat="c in cellInfos | cellText:displayType">
-            <div class="cell" onclick="document.getElementById('audioRes_' + this.getElementsByTagName('span')[0].innerText).play()">
+        <div ng-repeat="c in cellInfos">
+            <div class="cell" ng-click="checkUserClick(c.data.ch)">
               {{c.text}}
-              <span hidden>{{c.data.ch}}</span>
+              <span hidden>{{(studyMode=='a2p')?c.data.ch:(c.data.ch==curAlphabet?'right':'wrong')}}</span>
             </div>
         </div>
       </div>
       <div class='span3 sidebar'>
+        <h2>模式</h2>
+        <div class="btn-group" style="width:100%">
+            <button class="{{studyMode == 'a2p' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="setStudyMode('a2p')">字->音</button>
+            <button class="{{studyMode == 'p2a' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="setStudyMode('p2a')">音->字</button>
+        </div>
         <h2>顺序</h2>
         <div class="btn-group" style="width:100%">
-            <button class="btn btn-primary" style="width:50%" ng-click="sortCellInfos()">正序</button>
-            <button class="btn btn-primary" style="width:50%" ng-click="randomCellInfos()">乱序</button>
+            <button class="{{orderType == 'asc' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="sortCellInfos()">正序</button>
+            <button class="{{orderType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="randomCellInfos()">乱序</button>
         </div>
-        <h2>字母</h2>
+        <h2>字母:</h2>
         <div class="btn-group" style="width:100%">
             <button class="{{displayType == 'all' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='all'">全部</button>
             <button class="{{displayType == 'upper' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='upper'">大写</button>
@@ -63,6 +69,8 @@
         
         <div>
           <audio preload="auto" ng-repeat="ch in alphabets" src="{{ch.pronouce}}" id="{{'audioRes_' + ch.ch}}" hidden></audio>
+          <audio preload="auto" src="wav/right.mp3" id="{{'audioRes_right'}}" hidden></audio>
+          <audio preload="auto" src="wav/wrong.mp3" id="{{'audioRes_wrong'}}" hidden></audio>
         </div>
       </div>
     </div>

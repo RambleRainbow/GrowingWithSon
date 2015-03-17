@@ -29,7 +29,6 @@ function gridCtrl($scope, $http, pickAlphabet )
 			nLen = nLen + 1;
 			aReturn.splice(nIndex, 1);
 		}
-		$scope.orderType = 'random';
 	};
 	
 	$scope.compareCellInfos = function (a, b){
@@ -38,7 +37,6 @@ function gridCtrl($scope, $http, pickAlphabet )
 
 	$scope.sortCellInfos = function(){
 		$scope.cellInfos.sort($scope.compareCellInfos);
-		$scope.orderType = 'asc';
 	};
 		
 	$http.get('datas/alphabets.json').success(function(data){

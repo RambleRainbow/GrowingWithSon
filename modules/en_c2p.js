@@ -16,9 +16,4 @@ var en_c2p = angular.module('en_c2p',[])
 	  	return arrayReturn;
 	  };
 	})
-	.filter('cellText', [function(){
-		function cellTextFilter(cellInfos,displayType){
-		}
-		return cellTextFilter;
-	}])
 	.controller('gridCtrl', ['$scope', '$http', 'pickAlphabet', gridCtrl]);

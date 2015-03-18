@@ -1,4 +1,5 @@
-function gridCtrl($scope, $http, pickAlphabet )
+angular.module('en_c2p')
+	.controller( 'gridCtrl', ['$scope', '$http', function gridCtrl($scope, $http )
 {
 	$scope.alphabets = undefined;
 	$scope.cellInfos = undefined;
@@ -115,4 +116,4 @@ function gridCtrl($scope, $http, pickAlphabet )
 			$scope.randomCellInfos();
 		};
 	});
-};
+}]);

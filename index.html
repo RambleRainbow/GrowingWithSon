@@ -1,5 +1,5 @@
 ﻿
-<!DOCTYPE html>
+<!DOCTYPE html >
 <head>
     <title>Growing With Son</title>
     <link rel="stylesheet" href="lib/bootstrap-2.3.2/css/bootstrap.min.css">
@@ -23,10 +23,10 @@
         }
     </style>
     <script src="lib/angular-1.3.14/angular.js"></script>
-    <script src="app/en_c2p.js"></script>
-    <script src="app/gridCtrl.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/PronounceLearnController.js"></script>
 </head>
-<body>
+<body ng-app="MainApp">
   <div class='container'>
     <h1>Growing With Son</h1>
     <div class='navbar navbar-inverse'>
@@ -38,7 +38,7 @@
         </ul>
       </div>
     </div>
-    <div id='content' class='row-fluid' ng-app="en_c2p" ng-controller="gridCtrl as ctrl">
+    <div id='content' class='row-fluid' ng-controller="PronounceLearnControler as ctrl">
       <div class='span9 main'>
         <div ng-repeat="c in cellInfos">
             <div class="cell" ng-click="checkUserClick(c.data.ch)">

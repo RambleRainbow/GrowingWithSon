@@ -1,11 +1,12 @@
 angular.module('MainApp')
-	.controller( 'PronounceLearnControler', ['$scope', '$http', function PronounceLearnControler($scope, $http )
+	.controller( 'PronounceLearnController', ['$scope', '$http', function PronounceLearnControler($scope, $http )
 {
 	$scope.alphabets = undefined;
 	$scope.cellInfos = undefined;
 	$scope.displayType = ''; //random all lower upper
 	$scope.orderType = ''; //asc random
 	$scope.studyMode = ''; //p2a a2p
+	$scope.audioRes = undefined;
 	
 	$scope.initCellInfos = function(datas){
 	    $scope.cellInfos = new Array();
@@ -28,36 +29,25 @@ angular.module('MainApp')
 	
 	$scope.randomAlphabet = function(){
 		if($scope.alphabets != undefined){
-			$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))].ch;
+			$scope.curAlphabet = $scope.alphabets[(Math.round(Math.random() * ($scope.alphabets.length - 1)))];
 		}
 	};
 	
-	$scope.checkUserClick = function(ch){
+	$scope.checkUserClick = function(alphabet){
 		if($scope.studyMode == 'a2p'){
-			$scope.playAudioRes([ch]);
+			$scope.playAudioRes([alphabet.pronouce]);
 		}else{
-			if($scope.curAlphabet == ch){
+			if($scope.curAlphabet.ch == alphabet.ch){
 				$scope.randomAlphabet();
-				$scope.playAudioRes(['right', $scope.curAlphabet]);
+				$scope.playAudioRes(['wav/right.mp3', $scope.curAlphabet.pronouce]);
 			}else{
-				$scope.playAudioRes(['wrong', $scope.curAlphabet]);
+				$scope.playAudioRes(['wav/wrong.mp3', $scope.curAlphabet.pronouce]);
 			}
 		}
 	};
 	
 	$scope.playAudioRes  = function(aAudios){
-		var eAudio = document.getElementById('audioRes_' + aAudios[0]);
-		if(eAudio){
-			eAudio.play(aAudios[0]);
-			eAudio.onended = function(){
-				aAudios.splice(0,1);
-				eAudio.load();
-				eAudio.onended = undefined;
-				if(aAudios.length > 0){
-					$scope.playAudioRes(aAudios);
-				}
-			};
-		}
+		$scope.audioList = aAudios;
 	};
 	
 	$scope.randomCellInfos = function(){
@@ -105,7 +95,7 @@ angular.module('MainApp')
 		$scope.studyMode = value;
 		$scope.randomAlphabet();
 		if(value == 'p2a'){
-			$scope.playAudioRes([$scope.curAlphabet]);
+			$scope.playAudioRes([$scope.curAlphabet.pronouce]);
 		}
 	});
 	

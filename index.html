@@ -25,6 +25,7 @@
     <script src="lib/angular-1.3.14/angular.js"></script>
     <script src="app/app.js"></script>
     <script src="app/PronounceLearnController.js"></script>
+    <script src='app/AudioPlayerDirective.js'></script>
 </head>
 <body ng-app="MainApp">
   <div class='container'>
@@ -38,10 +39,10 @@
         </ul>
       </div>
     </div>
-    <div id='content' class='row-fluid' ng-controller="PronounceLearnControler as ctrl">
+    <div id='content' class='row-fluid' ng-controller="PronounceLearnController as ctrl">
       <div class='span9 main'>
         <div ng-repeat="c in cellInfos">
-            <div class="cell" ng-click="checkUserClick(c.data.ch)">
+            <div class="cell" ng-click="checkUserClick(c.data)">
               {{c.text}}
             </div>
         </div>
@@ -64,11 +65,7 @@
             <button class="{{displayType == 'lower' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='lower'">小写</button>
             <button class="{{displayType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='random'">随机</button>
         </div>
-        
-        <div>
-          <audio preload="auto" ng-repeat="ch in alphabets" src="{{ch.pronouce}}" id="{{'audioRes_' + ch.ch}}" hidden></audio>
-          <audio preload="auto" src="wav/right.mp3" id="{{'audioRes_right'}}" hidden></audio>
-          <audio preload="auto" src="wav/wrong.mp3" id="{{'audioRes_wrong'}}" hidden></audio>
+        <div audio-player play-list='audioList'>
         </div>
       </div>
     </div>

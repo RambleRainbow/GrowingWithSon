@@ -32,6 +32,6 @@ angular.module('MainApp')
 				scope.playList = "";
 			});
 		},
-		template:'<audio controls="controls" ></audio>'
+		template:'<audio></audio>'
 	};
 });

@@ -1,4 +1,4 @@
-angular.module('MainApp')
+angular.module('gwsApp.controllers')
 	.controller( 'PronounceLearnController', ['$scope', '$http', function PronounceLearnControler($scope, $http )
 {
 	$scope.alphabets = undefined;
